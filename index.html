@@ -1,6 +1,123 @@
----
-layout: home
-author_profile: true
-header:
-	image: "/images/baseball_stads.jpg"
----
+<!DOCTYPE html>
+
+
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <script src="assets/code.js"></script>
+    <title>Heading</title>
+  </head>
+  
+	
+  
+  <body>
+    <br>
+    <a href="index.html"><img class="logo" src="assets/final_v1.png" alt=""></a>
+    <br>
+    <div class="container main">
+  <div class="jumbotron" id="holder">
+    <h1 class='main_heading'> German Credit Scoring</h1>
+    <h3> In this website we try to predict probability of default based on information provided. </h3>
+    <br>
+    <div class="instructions">
+      <h2>Instructions: </h2>
+      <p>1. Try to fill form below.</p>
+    </div>
+    <br>
+    <br>
+    <form action="http://localhost:5000/api" method="POST">
+	<!--
+	<form action="http://samuelnatami.pythonanywhere.com/api" method="GET">
+      <div class="form-group">
+        <label class="control-label col-sm-2" for="email">Feature1:</label>
+        <div class="col-sm-10">
+          <input  class="form-control" id="textExp" placeholder=" Enter feature1" >
+		  <input  type="hidden" name="exp" value=document.getElementById("textExp").value>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button type="submit">Submit</button>
+        </div>
+      </div>
+	  -->
+	<input type="hidden" name="exp" value=int(1) /> 
+	
+	<input type="submit" /> 
+    </form>
+    <h2 class="result"></h2>
+  </div>
+</div>
+<div id="text"></div>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+		function myFunction(callback) {
+			const Url = 'http://samuelnatami.pythonanywhere.com/api'
+			var results = +document.getElementById("exp").value;
+			const data = {
+			"exp": results
+			}
+			document.getElementById("text").innerHTML = data.exp;
+			
+			var result_status = ""
+			
+			
+			var result_value = $.ajax({
+			type: "POST",
+			url: Url,
+			// This is the important part
+			xhrFields: {
+			withCredentials: true
+			},
+			// This is the important part
+			data: JSON.stringify(data),
+			success: function (response) {
+				// handle the response
+				document.getElementById("text").innerHTML = "Success";
+			},
+			error: function (xhr, status, data, response) {
+				// handle errors
+				console.log('respons:'+response);
+				console.log('data:'+data);
+				console.log('xhr:'+xhr.content);
+				document.getElementById("text").innerHTML = "Failed";
+			}
+		});
+		}
+//		$.post(Url, JSON.stringify(data));
+			
+			
+	</script>
+
+<form id = "form1" class="form-signin" method = "POST">
+  <h2 class="form-signin-heading">Please sign in</h2>
+  <input class="form-control" type="number" id ="exp" required name="exp" placeholder="Email address">
+  <button type="button" id='btnsub' onclick="myFunction()">Sign in</button>
+</form>
+
+
+
+	
+
+<!-- Footer -->
+<footer class="page-footer font-small blue">
+
+  <div class="footer-copyright text-center py-3">
+    <div class="bottom">
+      <p><a href="#">Nirta Ika Yunita & Samuel Natamihardja | German Credit Scoring</a></p>
+    </div>
+  </div>
+
+</footer>
+<!-- Footer -->
+
+
+  </body>
+</html>
